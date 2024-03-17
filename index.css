@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+.hero {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #08001f, #30197d);
+  color: #fff;
+  position: relative;
+}
+
+.container {
+  width: 800px;
+  height: 180px;
+  /* 배경이 되는 웹페이지를 기준으로 하기 위해 부모의 position을 relative, 자신의 position을 absolute로 둔다. */
+  position: absolute;
+  /* 시계가 들어갈 배경 박스의 왼쪽 꼭짓점을 페이지의 중앙으로 옮긴다. */
+  top: 50%;
+  left: 50%; 
+  /* 자신의 위치를 자신의 너비의 반만큼 왼쪽으로, 높이의 반만큼 위로 옮긴다. */
+  transform: translate(-50%, -50%);
+  /* background-color: red; */
+}
+/* 시계 컨테이너 앞에 분홍색 네모 추가하기 */
+.container::before {
+  /* content: 'forward'; */
+  content: "";
+  width: 180px;
+  height: 180px;
+  background: #f41b75;
+  border-radius: 5px;
+  position: absolute;
+  left: -50px;
+  top: -50px;
+  z-index: -1;
+}
+
+.container::after {
+  /* content: 'backward'; */
+  content: "";
+  width: 180px;
+  height: 180px;
+  background: #419aff;
+  border-radius: 50%;
+  position: absolute;
+  right: -30px;
+  bottom: -50px;
+  z-index: -1;
+}
+
+.clock {
+  width: 100%;
+  height: 100%;
+  background: rgba(235, 0, 255, 0.11);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(40px);
+}
+
+.clock span {
+  font-size: 80px;
+  width: 110px;
+  /* inline-block: inline형태로 한 줄로 배치하지만, width, height, margin, padding의 적용이 가능하다. */
+  display: inline-block;
+  /* text-align: center; 가운데 정렬(word 프로그램처럼) */
+  text-align: center;
+  position: relative;
+}
+
+.clock span::after {
+  font-size: 16px;
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#hrs::after {
+  content: 'HOURS';
+}
+
+#min::after {
+  content: 'MINS';
+}
+
+#sec::after {
+  content: 'SEC';
+}
