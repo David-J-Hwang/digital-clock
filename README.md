@@ -2,7 +2,7 @@
 
 ## 프로젝트 소개
 Javascript로 현재 시간정보를 받아, 시, 분, 초를 숫자로 나타내는 디지털 시계 프로젝트입니다.
-
+[페이지 바로가기](https://david-j-hwang.github.io/digital-clock/)
 ## 기술스택
 - HTML
 - CSS
