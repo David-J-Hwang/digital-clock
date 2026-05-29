@@ -8,47 +8,47 @@
 .hero {
   width: 100%;
   min-height: 100vh;
+  min-height: 100svh;
   background: linear-gradient(45deg, #08001f, #30197d);
   color: #fff;
   position: relative;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  overflow: hidden;
 }
 
 .container {
-  width: 800px;
-  height: 180px;
-  /* 배경이 되는 웹페이지를 기준으로 하기 위해 부모의 position을 relative, 자신의 position을 absolute로 둔다. */
-  position: absolute;
-  /* 시계가 들어갈 배경 박스의 왼쪽 꼭짓점을 페이지의 중앙으로 옮긴다. */
-  top: 50%;
-  left: 50%; 
-  /* 자신의 위치를 자신의 너비의 반만큼 왼쪽으로, 높이의 반만큼 위로 옮긴다. */
-  transform: translate(-50%, -50%);
-  /* background-color: red; */
+  width: min(800px, 100%);
+  height: clamp(140px, 24vw, 180px);
+  position: relative;
+  isolation: isolate;
 }
+
 /* 시계 컨테이너 앞에 분홍색 네모 추가하기 */
 .container::before {
   /* content: 'forward'; */
   content: "";
-  width: 180px;
-  height: 180px;
+  width: clamp(90px, 20vw, 180px);
+  height: clamp(90px, 20vw, 180px);
   background: #f41b75;
   border-radius: 5px;
   position: absolute;
-  left: -50px;
-  top: -50px;
+  left: clamp(-50px, -6vw, -18px);
+  top: clamp(-50px, -6vw, -18px);
   z-index: -1;
 }
 
 .container::after {
   /* content: 'backward'; */
   content: "";
-  width: 180px;
-  height: 180px;
+  width: clamp(90px, 20vw, 180px);
+  height: clamp(90px, 20vw, 180px);
   background: #419aff;
   border-radius: 50%;
   position: absolute;
-  right: -30px;
-  bottom: -50px;
+  right: clamp(-30px, -4vw, -12px);
+  bottom: clamp(-50px, -6vw, -18px);
   z-index: -1;
 }
 
@@ -60,23 +60,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: clamp(2px, 1.5vw, 8px);
+  padding: clamp(18px, 4vw, 32px);
+  -webkit-backdrop-filter: blur(40px);
   backdrop-filter: blur(40px);
 }
 
 .clock span {
-  font-size: 80px;
-  width: 110px;
-  /* inline-block: inline형태로 한 줄로 배치하지만, width, height, margin, padding의 적용이 가능하다. */
-  display: inline-block;
+  font-size: clamp(2.35rem, 13vw, 5rem);
+  width: clamp(2.7rem, 15vw, 6.875rem);
+  line-height: 1;
+  /* inline-flex: inline형태로 한 줄로 배치하면서 내용의 중앙 정렬을 쉽게 한다. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   /* text-align: center; 가운데 정렬(word 프로그램처럼) */
   text-align: center;
   position: relative;
 }
 
+.clock span[id] {
+  padding-bottom: clamp(0.95rem, 3vw, 1.25rem);
+}
+
+.clock span:not([id]) {
+  width: auto;
+  min-width: clamp(0.5rem, 3vw, 1.5rem);
+}
+
 .clock span::after {
-  font-size: 16px;
+  font-size: clamp(0.55rem, 2.5vw, 1rem);
+  line-height: 1;
   position: absolute;
-  bottom: -5px;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -91,4 +107,35 @@
 
 #sec::after {
   content: 'SEC';
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 20px 14px;
+  }
+
+  .container {
+    height: clamp(118px, 40vw, 150px);
+  }
+
+  .clock {
+    border-radius: 8px;
+    padding-inline: 14px;
+    -webkit-backdrop-filter: blur(28px);
+    backdrop-filter: blur(28px);
+  }
+
+  .container::before,
+  .container::after {
+    width: clamp(72px, 28vw, 110px);
+    height: clamp(72px, 28vw, 110px);
+  }
+
+  .container::before {
+    left: clamp(-72px, -13vw, -42px);
+  }
+
+  .container::after {
+    right: clamp(-58px, -11vw, -36px);
+  }
 }
